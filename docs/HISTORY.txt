@@ -1,20 +1,29 @@
 Changelog
 =========
 
-0.6dev (unreleased)
+0.8dev (unreleased)
 -------------------
 
-- add 'commenttext' as a notification mail option (thanks jean)
+0.7 (1.8.2013)
+-------------------
+- meaningful viewlet names
+
+0.6 (22.7.2013)
+-------------------
+
+- add mail-in functionality (jean)
+- forum subscription (jean)
+- add 'commenttext' as a notification mail option (jean)
 
 0.5 (11.2.2013)
 -------------------
 
-- added basque and spanish translations (thanks erral)
+- added basque and spanish translations (erral)
 
 0.4 (5.2.2013)
 -------------------
 
-- fix https://github.com/Haufe-Lexware/hl.plone.boardnotifications/issues/1 (thanks erral)
+- fix https://github.com/Haufe-Lexware/hl.plone.boardnotifications/issues/1 (erral)
 
 0.3 (13.12.2012)
 -------------------

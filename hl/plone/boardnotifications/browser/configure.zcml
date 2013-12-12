@@ -4,7 +4,7 @@
     i18n_domain="Products.PloneboardSubscription">
 
   <browser:viewlet
-    name="plone.abovecontenttitle.documentactions"
+    name="plone.belowcontentbody.conversationsubscription"
     for="Products.Ploneboard.content.PloneboardConversation.PloneboardConversation"
     manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
     class=".views.SubscriptionViewlet"
@@ -12,7 +12,7 @@
     />
 
   <browser:viewlet
-    name="plone.abovecontenttitle.documentactions"
+    name="plone.belowcontentbody.forumsubscription"
     for="Products.Ploneboard.content.PloneboardForum.PloneboardForum"
     manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
     class=".views.SubscriptionViewlet"
@@ -44,6 +44,13 @@
     for="Products.Ploneboard.interfaces.IForum"
     name="unsubscribe"
     class=".views.Unsubscribe"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="Products.Ploneboard.interfaces.IPloneboard"
+    name="mailin"
+    class=".mailin.Receiver"
     permission="zope2.View"
     />
 
