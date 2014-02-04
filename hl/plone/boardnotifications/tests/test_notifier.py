@@ -49,10 +49,14 @@ class NotifierTests(unittest.TestCase):
                              salutation='Frau',
                              lastname='Body',
                              firstname='No')
+        md4 = MemberDataMock(id='111111',
+                             email='',
+                             salutation='Frau',
+                             lastname='Missing',
+                             firstname='Email')
         mtool = queryUtility(IMembershipTool)
-        mtool.members[md1['id']] = md1
-        mtool.members[md2['id']] = md2
-        mtool.members[md3['id']] = md3
+        for m in [md1, md2, md3, md4]:
+            mtool.members[m['id']] = m
         forum = ForumMock('testforum', 'test forum')
         thread = ConversationMock(id='testthread',
                                   title='test thread',
@@ -356,6 +360,19 @@ class NotifierTests(unittest.TestCase):
         n.subscription_comment_added(self.app.testforum.testthread.testcomment)
         got = len(mh.emails)
         self.failUnless(got==0, 'no mails should be sent if the mail template contains only whitespace')
+
+    def test_subscription_missing_email(self):
+        n = self._make_one()
+        subscriptions = self._register_subscriptions()
+        # This member has no email address
+        subscriptions.add(self.app.testforum, '111111')
+        n.subscription_comment_edited_text = u'salutation:%(salutation)s\nthreadtitle:%(threadtitle)s\ncommenturl:%(commenturl)s\ncommenttext:%(commenttext)s\nsignature:%(mailsignature)s'
+        n.signature='signature'
+        n.salutations = {u'Herr':u'Sehr geehrter Herr %(firstname)s %(lastname)s', u'Frau':u'Sehr geehrte Frau %(firstname)s %(lastname)s'} 
+        mh = queryUtility(IMailHost)
+        mh.emails = []
+        n.subscription_comment_edited(self.app.testforum.testthread.testthread)
+        self.failUnless(len(mh.emails)==0, 'expected no mails (subscriber email address blank)')
 
     def test_parse_email_headers(self):
         n = self._make_one()
